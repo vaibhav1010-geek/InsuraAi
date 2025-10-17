@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import AddPolicyModal from "../components/AddPolicyModal";
-
+const API = process.env.REACT_APP_API_URL;
 export default function Dashboard() {
   const [policies, setPolicies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,7 +29,7 @@ export default function Dashboard() {
   const fetchPolicies = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/policies", {
+      const res = await fetch(`${API}api/policies`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -99,7 +99,7 @@ export default function Dashboard() {
     const ok = window.confirm("Delete this policy permanently?");
     if (!ok) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/policies/${id}`, {
+      const res = await fetch(`${API}/api/policies/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -117,7 +117,7 @@ export default function Dashboard() {
 
   const renewPolicy = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/policies/${id}/renew`, {
+      const res = await fetch(`${API}/api/policies/${id}/renew`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -347,7 +347,7 @@ export default function Dashboard() {
                       {/* View Document Button */}
                       {policy.fileUrl && (
                         <a
-                          href={`http://localhost:5000${policy.fileUrl}`}
+                          href={`${API}${policy.fileUrl}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-1.5 px-3 py-2 text-sm rounded-lg border border-indigo-500 text-indigo-600 hover:bg-indigo-50 transition"

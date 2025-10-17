@@ -15,7 +15,7 @@ export default function AddPolicyModal({ onClose, onSave, token }) {
     startDate: "",
     endDate: "",
   });
-
+  const API = process.env.REACT_APP_API_URL;
   // File select
   const handleFileChange = (e) => {
     const selected = e.target.files[0];
@@ -38,7 +38,7 @@ export default function AddPolicyModal({ onClose, onSave, token }) {
       const formDataObj = new FormData();
       formDataObj.append("file", file);
 
-      const res = await fetch("http://localhost:5000/api/extractRoutes/extract", {
+      const res = await fetch(`${API}/api/extractRoutes/extract`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formDataObj,
@@ -76,7 +76,7 @@ export default function AddPolicyModal({ onClose, onSave, token }) {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/policies", {
+      const res = await fetch(`${API}/api/policies`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
