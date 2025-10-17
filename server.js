@@ -19,7 +19,14 @@ import extractRoutes from "./routes/extractRoutes.js";
 connectDB();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://insuraai.vercel.app"], // your live frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(morgan("dev"));
 
