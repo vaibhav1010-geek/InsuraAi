@@ -21,7 +21,10 @@ connectDB();
 const app = express();
 app.use(
   cors({
-    origin: ["https://insuraai.vercel.app"], // your live frontend domain
+    origin: [
+      "https://insura-ai-pi.vercel.app",
+      "https://localhost:5173",
+    ], // your live frontend domain
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
