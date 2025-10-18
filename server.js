@@ -19,16 +19,26 @@ import extractRoutes from "./routes/extractRoutes.js";
 connectDB();
 
 const app = express();
+const allowedOrigins = [
+  "https://insura-ai-pi.vercel.app",
+  "http://localhost:5173",
+];
+
 app.use(
   cors({
-    origin: [
-      "https://insura-ai-pi.vercel.app",
-      "https://localhost:5173",
-    ], // your live frontend domain
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log("❌ Blocked by CORS:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
 );
+
 
 app.use(express.json());
 app.use(morgan("dev"));
