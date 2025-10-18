@@ -9,6 +9,7 @@ export default function Login() {
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
   const API = process.env.REACT_APP_API_URL;
+  console.log("Backend URL →", import.meta.env.VITE_API_URL);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
